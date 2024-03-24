@@ -1,0 +1,1 @@
+committing directly to a main branch and committing to a new branch for a pull request on gitHub are two different approaches in managing code changes and collaborating on a project.

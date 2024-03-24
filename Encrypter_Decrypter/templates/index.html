@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encrypter/Decrypter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        margin: 20px;
+      }
+      h2 {
+        text-align: center;
+        color: #fff;
+        font-size: 48px;
+      }
+      form {
+        background-color: #9999a1;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: auto;
+      }
+      textarea,
+      select,
+      input[type="file"],
+      input[type="submit"],
+      button {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin: 5px 0 15px;
+        background-color: #fff;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 20px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      textarea {
+        resize: vertical;
+      }
+      input[type="submit"],
+      button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        width: auto;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+      input[type="submit"]:hover,
+      button:hover {
+        background-color: #0056b3;
+      }
+      #resultContainer {
+        margin-top: 30px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        font-size: 20px;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        word-wrap: break-word;
+      }
+      .info {
+        font-size: 14px;
+        color: #777;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form
+      id="form"
+      method="POST"
+      action="{{ url_for('process') }}"
+      enctype="multipart/form-data"
+    >
+      <h2>Encrypter/Decrypter</h2>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        placeholder="Enter your message..."
+      ></textarea>
+      <input type="file" id="message_file" name="message_file" />
+      <select
+        id="algorithm"
+        name="algorithm"
+        required
+        onchange="updateAlgorithmInfo()"
+      >
+        <option value="P" title="Playfair Cipher">Playfair Cipher</option>
+        <option value="R" title="RSA (Rivest-Shamir-Adleman)">
+          RSA (Rivest-Shamir-Adleman)
+        </option>
+        <option value="E" title="ECC (Elliptic Curve Cryptography)">
+          ECC (Elliptic Curve Cryptography)
+        </option>
+        <option value="A" title="AES (Advanced Encryption Standard)">
+          AES (Advanced Encryption Standard)
+        </option>
+      </select>
+      <select id="operation" name="operation" required>
+        <option value="e">Encrypt</option>
+        <option value="d">Decrypt</option>
+      </select>
+      <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+    <div id="resultContainer">
+      {% if message %}
+      <p><strong>Original Message:</strong> {{ message }}</p>
+      {% endif %} {% if result %}
+      <p><strong>Result:</strong> {{ result }}</p>
+      {% endif %}
+    </div>
+
+    <script>
+      document
+        .getElementById("logoutForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+          fetch(this.action, {
+            method: this.method,
+            body: new FormData(this),
+          })
+            .then(function (response) {
+              if (response.redirected) {
+                window.location.href = response.url; // Redirect to the specified URL after logout
+              }
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>

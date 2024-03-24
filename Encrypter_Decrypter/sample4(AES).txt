@@ -1,0 +1,5 @@
+Committing directly to a main branch and committing to a new branch for a pull request on GitHub are two different approaches in managing code changes and collaborating on a project.
+This approach involves making changes directly to the main branch (often called master or main), without creating a separate branch for those changes.
+It is a simpler workflow and is often used for small changes or in projects with a single developer.
+
+
