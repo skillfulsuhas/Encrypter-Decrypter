@@ -206,4 +206,4 @@ with app.app_context():
 
 if __name__ == "__main__":  # Checking if script is run directly
     threading.Thread(target=run_server).start()  # Starting server in a separate thread
-    app.run(host="0.0.0.0", port=50100, debug=True, ssl_context=('Trail-7\cert.pem', 'Trail-7\key.pem'))  # Running Flask app with SSL encryption
+    app.run(host="0.0.0.0", port=50100, debug=True, ssl_context=('Encrypter_Decrypter\cert.pem', 'Encrypter_Decrypter\key.pem'))  # Running Flask app with SSL encryption
