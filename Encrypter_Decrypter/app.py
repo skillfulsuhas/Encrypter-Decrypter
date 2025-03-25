@@ -15,7 +15,7 @@ from eccc import ecc_encrypt, ecc_decrypt  # Importing ECC encryption functions
 app = Flask(__name__)# Creating a Flask application instance
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'your_secret_key'
+app.secret_key = 'abcchash'
 
 db = SQLAlchemy(app)
 
